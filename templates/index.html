@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Logo Detection App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <style>
+    .header {text-align: center; padding: 30px 30px 30x 30px; font-size: 40px;}
+    .upload {text-align: center; padding: 20px 20px 20x 20px; font-size: 30px;}
+    .download {text-align: center; padding: 15px 15px 15x 15px; font-size: 30px;}
+    .download_label {text-align: center; padding: 15px 15px 15x 15px; font-size: 30px;}
+    body {background-image: url('https://media.istockphoto.com/photos/dotted-grid-paper-background-texture-seamless-repeat-pattern-picture-id1320330053?b=1&k=20&m=1320330053&s=170667a&w=0&h=XisfN35UnuxAVP_sjq3ujbFDyWPurSfSTYd-Ll09Ncc=');}
+  </style>
+  <body>
+    <div class="header">
+        <h1 align="center">Logo Detector</h1>
+    </div>
+
+    <div class="upload">
+        <p><strong>Upload file for detection</strong></p>
+        <div id="controls">
+        <form class="p-3 text-center" action="/detect", method="post" enctype="multipart/form-data">
+            <input class="form-control" type="file" name="logofile" style="font-size:16px"><br>
+            <p><strong>Detect File</strong></p>
+            <input class="btn btn-primary mt-3" type="submit" value="Detect" style="height:40px; width:120px; font-size:24px">
+        </form>
+
+        {% if download_file %}
+            <p class = "text-center"> Performed detection on  {{download_file}}</p>
+        {% endif %}
+
+        </div>
+    </div>
+    
+    <div class="download">
+      <p><strong>Download File and Predictions</strong></p>
+      <a href="/download" download="proposed_file_name">
+        <button class="btn btn-default" style="height:30px; width:150px; font-size:17px">Download File</button></a>
+    </div>
+    <br>
+    <div class="download_label">
+      <a href="/download_label" download="proposed_file_name">
+        <button class="btn btn-default" style="height:30px; width:200px; font-size:17px">Download Predictions</button></a>
+    </div>
+         
+        
+
+    
+  </body>
+</html>

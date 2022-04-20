@@ -1,0 +1,47 @@
+
+
+/* start of nav bar*/
+.headers{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10%;
+}
+
+
+.nav__links{
+    list-style: none;
+}
+
+.nav__links li{
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav__links li a{
+    transition: all 0.3s ease 0s;
+    color: black;
+    font-size: 15px;
+}
+
+.nav__links li a:hover{
+    color: grey
+}
+
+button{
+    color: black;
+    padding: 5px 10px;
+    background: white;
+    border-radius: 30px;
+    border-color: black;
+    cursor: pointer;
+    
+}
+/* end of nav bar */
+
+
+
+a h4{
+    color: black;
+    text-decoration: underline;
+}
