@@ -10,11 +10,41 @@
     .upload {text-align: center; padding: 20px 20px 20x 20px; font-size: 30px;}
     .download {text-align: center; padding: 15px 15px 15x 15px; font-size: 30px;}
     .download_label {text-align: center; padding: 15px 15px 15x 15px; font-size: 30px;}
+    .youtube_url {text-align: center; padding: 15px 15px 15x 15px; font-size: 30px;}
+    .download_youtube {text-align: center; padding: 15px 15px 15x 15px; font-size: 30px;}
     body {background-image: url('https://media.istockphoto.com/photos/dotted-grid-paper-background-texture-seamless-repeat-pattern-picture-id1320330053?b=1&k=20&m=1320330053&s=170667a&w=0&h=XisfN35UnuxAVP_sjq3ujbFDyWPurSfSTYd-Ll09Ncc=');}
   </style>
   <body>
     <div class="header">
         <h1 align="center">Logo Detector</h1>
+    </div>
+
+    <div class="youtube_url" class="panel panel-default">
+        <form action="/youtube_url" method="post">
+            <div class="form-row">
+                <input type="text" class="form-control"
+                   placeholder="Enter a youtube video url"
+                   name="youtube_url"/> 
+            </div>
+            
+            <div class="form-row">
+                <input type="submit" value="Start Download" class="btn-info btn-lg" />
+            </div>
+        </form>
+        
+        {% if pre_download %}
+            <p class = "text-center">{{pre_download}}</p>
+            {% endif %}
+
+        {% if post_download %}
+            <p class = "text-center">{{post_download}}</p>
+        {% endif %}
+
+    <div class="download_youtube">
+      <a href="/download_youtube" download="proposed_file_name">
+        <button class="btn btn-default" style="height:30px; width:200px; font-size:17px">Download Video</button></a>
+    </div>
+
     </div>
 
     <div class="upload">
@@ -26,9 +56,7 @@
             <input class="btn btn-primary mt-3" type="submit" value="Detect" style="height:40px; width:120px; font-size:24px">
         </form>
 
-        {% if download_file %}
-            <p class = "text-center"> Performed detection on  {{download_file}}</p>
-        {% endif %}
+        
 
         </div>
     </div>

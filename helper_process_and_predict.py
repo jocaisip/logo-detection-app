@@ -2,7 +2,7 @@ import os, glob, shutil
 import helper_predict
 
 def process_and_predict(path):
-    out_path = r'.\files\output'
+    out_path = r'.\static\output'
     out_dirname = 'model_output'
     
     #Deleting existing files if any
@@ -19,6 +19,7 @@ def process_and_predict(path):
             shutil.move(os.path.join(out_path,out_dirname,file), os.path.join(out_path,file))
     
     #Copying all \output\model_output\labels\*.txt and writing to single \output\labels.txt
+
     dirname = os.listdir(os.path.join(out_path,out_dirname))[0]
     with open(os.path.join(out_path,'label.txt'), 'w') as outfile:
         for file in os.listdir(os.path.join(out_path,out_dirname,dirname)):

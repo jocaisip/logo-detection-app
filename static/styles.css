@@ -45,3 +45,12 @@ a h4{
     color: black;
     text-decoration: underline;
 }
+
+input {
+    color: black;
+    padding: 5px 10px;
+    background: white;
+    border-radius: 30px;
+    border-color: black;
+    cursor: pointer;
+}
