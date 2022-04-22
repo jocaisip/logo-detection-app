@@ -54,3 +54,19 @@ input {
     border-color: black;
     cursor: pointer;
 }
+
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid #999;
+    padding: 2 rem;
+    text-align: left;
+}
+
+tr {
+    padding: 2px, 4px;
+}
+
+

@@ -40,27 +40,153 @@
 
         <div class="container">
             <div class="row">
-            <h3>Try out LogoSpace! </h3>
-            <h4>Usage instructions:</h4>
-            <h4>1. Upload your video or image (PNG, JPG, and MP4 only)</h4>
-            <h4>2. Click 'Detect Logo' and wait for the success message</h4>
-            <h4>3. Check the detections in Table of Insights</h4>
-            <h4> 4. Download output file, label, and table</h4>
+                <div class="col-6">
+                    <div class="container">
+                        <h3>Try out LogoSpace! </h3>
+                        <br>
+                        <h4>Usage instructions:</h4>
+                        <h4>1. Upload your video or image (PNG, JPG, and MP4 only)</h4>
+                        <h4>2. Click 'Detect Logo' and wait for the success message</h4>
+                        <h4>3. Check the detections in Table of Insights</h4>
+                        <h4>4. Download output file, label, and table</h4> 
+                    </div>
+
+                </div>
+                <div class="col-6">
+                        <h3>Dont have a video? Download Youtube Videos here</h3>
+                            <form action="/youtube_url" method="post">
+                                <div class="form-row">
+                                    <input type="text" class="form-control"
+                                        placeholder="Enter Youtube Video URL"
+                                        name="youtube_url"/> 
+                                </div>
+                        
+                                <div>
+                                    <input type="submit" value="Start Download" class="btn btn-primary mt-3" />
+                                </div>
+                            </form>
+                            {% if post_download %}
+                                    <p> {{post_download}} </p>
+                            {% endif %}
+                    
+                        <br>
+
+                        <div class="download_youtube">
+                            <a href="/download_youtube" download="proposed_file_name">
+                            <button class="btn btn-primary mt-3" style="height:40px; width:220px; font-size:17px">Download Youtube Video</button>
+                            </a>
+                        </div>        
+
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+        <p id="decider">{{file_type}}</p>
+
+        <script type=text/javascript>
+                        
+
+            function myFunction() {
+                var x = document.getElementById("decider").innerHTML;
+                if (x === 'mp4'){
+                document.getElementById('videotag').style.visibility = "visible";
+                document.getElementById('imagetag').style.visibility = "hidden";
+                console.log('if_state');
+                console.log(x);
+                } 
+                else if (x === 'jpg') {
+                document.getElementById('imagetag').style.visibility = "visible";
+                document.getElementById('videotag').style.visibility = "hidden";
+                console.log('else_state');
+                console.log(x);
+                }
+                else if (x === 'png') {
+                document.getElementById('imagetag').style.visibility = "visible";
+                document.getElementById('videotag').style.visibility = "hidden";
+                console.log('else_state');
+                console.log(x);
+                }
+                else {
+                document.getElementById('imagetag').style.visibility = "hidden";
+                document.getElementById('videotag').style.visibility = "hidden";
+                }
+            }
+  
+                            
+        </script>
+
+        <div class="container" style="padding: 40px 0px;">
+            <div class="row">    
+
                 <!--Element 1-->
+                
+
                 <div class="col-4">
-                    <h3 style="padding: 20px 0px;">Input Video</h3>
+                    <h3 style="padding: 20px 0px;">Input File</h3>
+                    
                     <form class="p-3 text-right" action="/upload", method="post" enctype="multipart/form-data">
                         <input class="form-control" type="file" id="real-life" name="logofile"/>
-                        <input class="btn btn-primary mt-3" type="submit" value="Upload">
+                        <input class="btn btn-primary mt-3" type="submit" value="Upload" onclick="myFunction()">
                         <!--<button type="button" id="custom-button" >Choose Video</button>-->
                     </form>
+                  
+                    
+                    <div id="imagetag">
 
                     {% if input_filename %}
-	                    <div>
-		                    <video <video width="340" height="250" controls="controls" preload="preload">
-			                    <source src="{{ url_for('display_video', filename=input_filename) }}" type="video/mp4"></source>
-		                    </video>
-	                    </div>
+                           
+                        <h4>Image</h4>
+                        <img src="{{ url_for('display_video', filename=input_filename) }}" width="360" height="250"> 
+
+                    {% endif %}
+
+                    </div>                    
+                            
+                    <br>
+                    <br>
+
+                    <div id="videotag">
+                    {% if input_filename %}
+                        <h4>Video</h4>
+		                <video <video width="360" height="250" controls="controls" preload="preload">
+			                <source src="{{ url_for('display_video', filename=input_filename) }}" type="video/mp4"></source>
+		                </video>
+                            
+                    {% endif %}
+
+                    </div>
+
+
+                    
+
+                    {% if output_filename %}
+                            <div class="imagetag">
+                                <h4>Image</h4>
+                                <img src="{{ url_for('display_output_video', filename=output_filename) }}" width="360" height="260">    
+                            </div>
+                            <br>
+                            <br>
+                            <div class="videotag">
+                                <h4>Video</h4>
+		                        <video <video width="360" height="260" controls="controls" preload="preload">
+			                        <source src="{{ url_for('display_output_video', filename=output_filename) }}" type="video/mp4"></source>
+		                        </video>
+                            </div>
+                    {% endif %}
+            
+                    
+
+
+                    <form action="/detect", method="post">  
+                        <!--<a href=# id=test><button>Detect Logo</button></a>-->
+                        <input class="btn btn-primary mt-3" type="submit" value="Detect Logo" onclick="myFunction()">
+                    </form>
+                    <br>
+                    {% if done_msg %}
+                        <p> {{done_msg}} </p>
                     {% endif %}
                 
                     <!-- for the show video-->
@@ -75,28 +201,75 @@
         
                 
                 <!--Element 2-->
-                <div class='col-4 my-auto' style="text-align: center;">
+                <div class='col-4' style="text-align: center;">
                     <h3>Table of Insights</h3>
+                   
+                    <div>
+                        <table border="1" style="margin-top:51px; margin-left:20px;">
+                            <thead>
+                                <tr>
+                                    {% for col in colnames %}
+                                    <th>{{ col }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for record in records %}
+                                <tr>
+                                    {% for col in colnames %}
+                                    <td>{{ record[col] }}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                   
+                  
+                    <br>
+                    <br>
 
                     <div>
                         <a href="/download_report" download="proposed_file_name">
-                        <button class="btn btn-primary mt-3" style="height:40px; width:160px; font-size:17px">Download Table</button></a>
+                        <button class="btn btn-primary mt-3" style="height:35px; width:125px; font-size:14px">Download Table</button></a>
                     </div>
-                </div>
-
-                <!--Element 3-->
-                <div class="col-4" style="text-align: end;">
-                    <h3 style="padding: 20px 0px;">Download Predictions</h3>
-
+                    <br>
                     <div>
                       <a href="/download" download="proposed_file_name">
-                        <button class="btn btn-primary mt-3" style="height:40px; width:160px; font-size:17px">Download File</button></a>
+                        <button class="btn btn-primary mt-3" style="height:35px; width:125px; font-size:14px">Download File</button></a>
                     </div>
                     <br>
                     <div>
                       <a href="/download_label" download="proposed_file_name">
-                        <button class="btn btn-primary mt-3" style="height:40px; width:160px; font-size:17px">Download Labels</button></a>
+                        <button class="btn btn-primary mt-3" style="height:35px; width:125px; font-size:13px">Download Labels</button></a>
                     </div>
+
+                </div>
+
+                <!--Element 3-->
+                <div class="col-4" style="text-align: center;">
+                    <h3 style="padding: 20px 0px;">Available Logos</h3>
+                    <div style="width: 350px; height: 600px; overflow:auto;">
+                        <table border="1" style="width:200px; height: 400px;">
+                            <thead>
+                                <tr>
+                                    {% for col in logo_col %}
+                                    <th>{{ col }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for record in logo_row %}
+                                <tr>
+                                    {% for col in logo_col %}
+                                    <td>{{ record[col] }}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
                 </div>
 
 
@@ -104,26 +277,7 @@
            
         </div>
 
-        <div class="container">
-
-            {% if output_filename %}
-	            <div>
-		            <video <video width="340" height="250" controls="controls" preload="preload">
-			            <source src="{{ url_for('display_output_video', filename=output_filename) }}" type="video/mp4"></source>
-		            </video>
-	            </div>
-            {% endif %}
-            
-            <form action="/detect", method="post">  
-                <!--<a href=# id=test><button>Detect Logo</button></a>-->
-                <input class="btn btn-primary mt-3" type="submit" value="Detect Logo">
-            </form>
-            <br>
-            {% if done_msg %}
-                <p> {{done_msg}} </p>
-            {% endif %}
-        </div>
-
+        
             <!-- https://stackoverflow.com/questions/42601478/flask-calling-python-function-on-button-onclick-event -->
                 <!-- @app.route('/detectlogofunction')
                 def detectlogofunction():
@@ -146,30 +300,9 @@
             
         <br>
         <br>
-        <div class="col-4" style="position: absolute; left: 190px">
-            <h3>Download Youtube videos</h3>
-            <form action="/youtube_url" method="post">
-                <div class="form-row">
-                    <input type="text" class="form-control"
-                        placeholder="Enter Youtube Video URL"
-                        name="youtube_url"/> 
-                </div>
-            
-                <div>
-                    <input type="submit" value="Start Download" class="btn btn-primary mt-3" />
-                </div>
-            </form>
-            {% if post_download %}
-                 <p> {{post_download}} </p>
-            {% endif %}
         
-            <br>
-        <div class="download_youtube">
-          <a href="/download_youtube" download="proposed_file_name">
-            <button class="btn btn-primary mt-3" style="height:40px; width:180px; font-size:17px">Download YT Video</button></a>
-            <br>
-            <br>
-        </div>
+            
+        
 
         <script>
             const reallifebtn = document.getElementById("real-life")
@@ -179,5 +312,7 @@
             })
 
         </script>
+
+        
     </body>
 </html>
