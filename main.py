@@ -6,9 +6,6 @@ from flask import url_for
 from flask import redirect
 from werkzeug.utils import secure_filename
 import os
-import subprocess
-import torch
-import sys
 import pafy
 
 
