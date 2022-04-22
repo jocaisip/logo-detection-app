@@ -1,16 +1,16 @@
-import os, glob, shutil
+import os, shutil
 import helper_predict
 
 def process_and_predict(path):
-    out_path = r'.\static\output'
+    out_path = 'static/output'
     out_dirname = 'model_output'
     
     #Deleting existing files if any
     shutil.rmtree(out_path,ignore_errors=True)
     
     #Predicting step
-    helper_predict.predict(path_to_images=path,\
-                           output_parent_dir=out_path,\
+    helper_predict.predict(path_to_images=path,
+                           output_parent_dir=out_path,
                            output_dirname=out_dirname)
     
     #Moving \output\model_output\*.* to \output\
