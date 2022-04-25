@@ -133,7 +133,15 @@
                         <!--<button type="button" id="custom-button" >Choose Video</button>-->
                     </form>
                   
-                    
+                    <form action="/detect", method="post">  
+                        <!--<a href=# id=test><button>Detect Logo</button></a>-->
+                        <input class="btn btn-primary mt-3" type="submit" value="Detect Logo" onclick="myFunction()">
+                    </form>
+                    <br>
+                    {% if done_msg %}
+                        <p> {{done_msg}} </p>
+                    {% endif %}
+
                     <div id="imagetag">
 
                     {% if input_filename %}
@@ -145,7 +153,7 @@
 
                     </div>                    
                             
-                    <br>
+                    
                     <br>
 
                     <div id="videotag">
@@ -160,7 +168,7 @@
                     </div>
 
 
-                    
+                    <br>
 
                     {% if output_filename %}
                             <div class="imagetag">
@@ -180,14 +188,7 @@
                     
 
 
-                    <form action="/detect", method="post">  
-                        <!--<a href=# id=test><button>Detect Logo</button></a>-->
-                        <input class="btn btn-primary mt-3" type="submit" value="Detect Logo" onclick="myFunction()">
-                    </form>
-                    <br>
-                    {% if done_msg %}
-                        <p> {{done_msg}} </p>
-                    {% endif %}
+                    
                 
                     <!-- for the show video-->
                         
